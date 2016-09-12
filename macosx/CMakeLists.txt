@@ -398,13 +398,6 @@ target_link_libraries(${TR_NAME}-mac
     "-framework Security"
 )
 
-# FIXME: This makes debugging in build directory possible; wouldn't be necessary if the two frameworks had @rpath-based install names :(
-add_custom_command(TARGET ${TR_NAME}-mac POST_BUILD
-    COMMAND ${INSTALL_NAME_TOOL_EXECUTABLE} -add_rpath "${PROJECT_SOURCE_DIR}" $<TARGET_FILE:${TR_NAME}-mac>
-    COMMAND ${INSTALL_NAME_TOOL_EXECUTABLE} -change @executable_path/../Frameworks/Growl.framework/Versions/A/Growl @rpath/Growl.framework/Versions/A/Growl $<TARGET_FILE:${TR_NAME}-mac>
-    COMMAND ${INSTALL_NAME_TOOL_EXECUTABLE} -change @loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle @rpath/Sparkle.framework/Versions/A/Sparkle $<TARGET_FILE:${TR_NAME}-mac>
-)
-
 set(BUNDLE_NAME Transmission)
 
 set_target_properties(${TR_NAME}-mac PROPERTIES
